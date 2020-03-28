@@ -61,20 +61,24 @@ namespace CelerChatClient {
 
         public void Recv() {
             // 创建内存缓冲区
-            byte[] srcChatHistoryBuffer = new byte[1024 * 1024];
+            byte[] srcNewMsgBuffer = new byte[1024 * 1024];
 
             while (true) {
                 try {
-                    int len = socketClient.Receive(srcChatHistoryBuffer);
+                    int len = socketClient.Receive(srcNewMsgBuffer);
 
                     // 将byte转换为string
-                    string srcChatHistory = Encoding.UTF8.GetString(srcChatHistoryBuffer, 0, len);
+                    string srcNewMsg = Encoding.UTF8.GetString(srcNewMsgBuffer, 0, len);
 
                     // Console.WriteLine(srcChatHistory);
-                    
-                    // 将收到的字符串更新到chatHistoryTextBox
+
+                    // 将新消息增加到chatHistory
+                    string chatHistory = chatHistoryTextBox.Text;
+                    chatHistory += srcNewMsg;
+
+                    // 将增加新消息后的chatHistory更新到chatHistoryTextBox
                     BeginInvoke(new Action(() => {
-                        chatHistoryTextBox.Text = srcChatHistory;
+                        chatHistoryTextBox.Text = chatHistory;
 
                         // 滚动到最底部
                         chatHistoryTextBox.SelectionStart = chatHistoryTextBox.Text.Length;
