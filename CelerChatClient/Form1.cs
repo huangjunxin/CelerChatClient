@@ -30,6 +30,9 @@ namespace CelerChatClient {
             try {
                 socketClient.Connect(new IPEndPoint(ip, 10086));
                 Console.WriteLine("连接服务器成功");
+
+                // 获取本地IP
+                // string localEndPoint = socketClient.LocalEndPoint.ToString();
             } catch {
                 Console.WriteLine("连接服务器失败");
                 return;
