@@ -27,16 +27,41 @@ namespace CelerChatClient {
             IPAddress ip = IPAddress.Parse("127.0.0.1");
             socketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
+            string newInfo = null;
+
             try {
                 socketClient.Connect(new IPEndPoint(ip, 10086));
-                Console.WriteLine("连接服务器成功");
+
+                newInfo = "Successfully connected to server.";
+                connectButton.Enabled = false;
 
                 // 获取本地IP
                 // string localEndPoint = socketClient.LocalEndPoint.ToString();
             } catch {
-                Console.WriteLine("连接服务器失败");
-                return;
+                newInfo = "Failed to connect to server.";
             }
+
+            // 获取当前时间
+            string nowDateTime = DateTime.Now.ToString();
+
+            // 将新提示拼接成一条新消息
+            string newMsg = "System info " + nowDateTime;
+            newMsg += Environment.NewLine;
+            newMsg += "　" + newInfo;
+            newMsg += Environment.NewLine;
+
+            // 将新提示增加到chatHistory
+            string chatHistory = chatHistoryTextBox.Text;
+            chatHistory += newMsg;
+
+            // 将增加新消息后的chatHistory更新到chatHistoryTextBox
+            BeginInvoke(new Action(() => {
+                chatHistoryTextBox.Text = chatHistory;
+
+                // 滚动到最底部
+                chatHistoryTextBox.SelectionStart = chatHistoryTextBox.Text.Length;
+                chatHistoryTextBox.ScrollToCaret();
+            }));
 
             // 创建接收服务器反馈的进程
             Thread threadClient = new Thread(Recv);
@@ -62,7 +87,7 @@ namespace CelerChatClient {
                 // 发送消息
                 socketClient.Send(targetMsgBuffer);
             } else {
-                MessageBox.Show("Currently not connected to the server, please check your connection!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You are not currently connected to the server. Please check your connection.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
