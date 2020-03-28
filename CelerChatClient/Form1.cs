@@ -58,8 +58,12 @@ namespace CelerChatClient {
             // 将string转换为byte
             byte[] targetMsgBuffer = Encoding.UTF8.GetBytes(targetMsg);
 
-            // 发送消息
-            socketClient.Send(targetMsgBuffer);
+            if (socketClient != null) {
+                // 发送消息
+                socketClient.Send(targetMsgBuffer);
+            } else {
+                MessageBox.Show("Currently not connected to the server, please check your connection!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void Recv() {
