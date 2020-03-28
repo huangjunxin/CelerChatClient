@@ -36,7 +36,12 @@ namespace CelerChatClient {
                 connectButton.Enabled = false;
 
                 // 获取本地IP
-                // string localEndPoint = socketClient.LocalEndPoint.ToString();
+                string localEndPoint = socketClient.LocalEndPoint.ToString();
+
+                // 更新当前本地IP到IP栏
+                BeginInvoke(new Action(() => {
+                    localIPLabel.Text = "Local IP: " + localEndPoint;
+                }));
             } catch {
                 newInfo = "Failed to connect to server.";
             }

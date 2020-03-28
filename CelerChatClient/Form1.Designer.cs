@@ -29,6 +29,7 @@
             this.sendButton = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.connectButton = new System.Windows.Forms.Button();
+            this.localIPLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // chatHistoryTextBox
@@ -93,6 +94,16 @@
             this.connectButton.UseVisualStyleBackColor = true;
             this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
             // 
+            // localIPLabel
+            // 
+            this.localIPLabel.AutoSize = true;
+            this.localIPLabel.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.localIPLabel.Location = new System.Drawing.Point(12, 425);
+            this.localIPLabel.Name = "localIPLabel";
+            this.localIPLabel.Size = new System.Drawing.Size(143, 12);
+            this.localIPLabel.TabIndex = 6;
+            this.localIPLabel.Text = "Local IP: No Connection";
+            // 
             // Form1
             // 
             this.AcceptButton = this.sendButton;
@@ -100,6 +111,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(614, 455);
+            this.Controls.Add(this.localIPLabel);
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.sendButton);
@@ -107,7 +119,7 @@
             this.Controls.Add(this.chatContentTextBox);
             this.Controls.Add(this.chatHistoryTextBox);
             this.Name = "Form1";
-            this.Text = "CelerChatClient  - Alpha 0.3 By Transion C. T. Studio";
+            this.Text = "CelerChatClient  - Alpha 0.4 By Transion C. T. Studio";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -121,6 +133,7 @@
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button connectButton;
+        private System.Windows.Forms.Label localIPLabel;
     }
 }
 
