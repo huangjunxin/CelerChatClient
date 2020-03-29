@@ -80,15 +80,15 @@ namespace CelerChatClient {
         }
 
         public void ClientSendMsg(string targetMsg) {
-            // 清空chatContentTextBox
-            BeginInvoke(new Action(() => {
-                chatContentTextBox.Text = "";
-            }));
+            if (localIPLabel.Text != "Local IP: No Connection") {
+                // 清空chatContentTextBox
+                BeginInvoke(new Action(() => {
+                    chatContentTextBox.Text = "";
+                }));
 
-            // 将string转换为byte
-            byte[] targetMsgBuffer = Encoding.UTF8.GetBytes(targetMsg);
+                // 将string转换为byte
+                byte[] targetMsgBuffer = Encoding.UTF8.GetBytes(targetMsg);
 
-            if (socketClient != null) {
                 // 发送消息
                 socketClient.Send(targetMsgBuffer);
             } else {

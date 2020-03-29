@@ -119,7 +119,7 @@
             this.Controls.Add(this.chatContentTextBox);
             this.Controls.Add(this.chatHistoryTextBox);
             this.Name = "Form1";
-            this.Text = "CelerChatClient  - Alpha 0.4 By Transion C. T. Studio";
+            this.Text = "CelerChatClient  - Alpha 0.5 By Transion C. T. Studio";
             this.ResumeLayout(false);
             this.PerformLayout();
 
