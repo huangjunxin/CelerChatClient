@@ -24,6 +24,9 @@ namespace CelerChatClient {
         static Socket socketClient = null;
 
         private void connectButton_Click(object sender, EventArgs e) {
+            // IPHostEntry host = Dns.GetHostEntry("0.tcp.ngrok.io");
+            // IPAddress ip = host.AddressList[0];
+
             IPAddress ip = IPAddress.Parse("127.0.0.1");
             socketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -84,6 +87,28 @@ namespace CelerChatClient {
                 // 清空chatContentTextBox
                 BeginInvoke(new Action(() => {
                     chatContentTextBox.Text = "";
+                }));
+
+                // 获取当前时间
+                string nowDateTime = DateTime.Now.ToString();
+
+                // 将收到的字符串拼接成一条新消息
+                string newMsg = socketClient.LocalEndPoint + " " + nowDateTime;
+                newMsg += Environment.NewLine;
+                newMsg += "　" + targetMsg;
+                newMsg += Environment.NewLine;
+
+                // 将新消息增加到chatHistory
+                string chatHistory = chatHistoryTextBox.Text;
+                chatHistory += newMsg;
+
+                // 将增加新消息后的chatHistory更新到chatHistoryTextBox
+                BeginInvoke(new Action(() => {
+                    chatHistoryTextBox.Text = chatHistory;
+
+                    // 滚动到最底部
+                    chatHistoryTextBox.SelectionStart = chatHistoryTextBox.Text.Length;
+                    chatHistoryTextBox.ScrollToCaret();
                 }));
 
                 // 将string转换为byte

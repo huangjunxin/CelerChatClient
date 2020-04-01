@@ -42,7 +42,7 @@
             this.chatHistoryTextBox.ReadOnly = true;
             this.chatHistoryTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.chatHistoryTextBox.Size = new System.Drawing.Size(432, 306);
-            this.chatHistoryTextBox.TabIndex = 0;
+            this.chatHistoryTextBox.TabIndex = 1;
             // 
             // chatContentTextBox
             // 
@@ -52,7 +52,7 @@
             this.chatContentTextBox.Name = "chatContentTextBox";
             this.chatContentTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.chatContentTextBox.Size = new System.Drawing.Size(431, 89);
-            this.chatContentTextBox.TabIndex = 1;
+            this.chatContentTextBox.TabIndex = 0;
             // 
             // closeButton
             // 
@@ -119,7 +119,7 @@
             this.Controls.Add(this.chatContentTextBox);
             this.Controls.Add(this.chatHistoryTextBox);
             this.Name = "Form1";
-            this.Text = "CelerChatClient  - Alpha 0.5 By Transion C. T. Studio";
+            this.Text = "CelerChatClient  - Alpha 0.6 By Transion C. T. Studio";
             this.ResumeLayout(false);
             this.PerformLayout();
 
