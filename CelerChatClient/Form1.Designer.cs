@@ -30,6 +30,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.connectButton = new System.Windows.Forms.Button();
             this.localIPLabel = new System.Windows.Forms.Label();
+            this.nicknameTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // chatHistoryTextBox
@@ -47,11 +48,11 @@
             // chatContentTextBox
             // 
             this.chatContentTextBox.Font = new System.Drawing.Font("更纱黑体 SC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.chatContentTextBox.Location = new System.Drawing.Point(13, 325);
+            this.chatContentTextBox.Location = new System.Drawing.Point(12, 325);
             this.chatContentTextBox.Multiline = true;
             this.chatContentTextBox.Name = "chatContentTextBox";
             this.chatContentTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.chatContentTextBox.Size = new System.Drawing.Size(431, 89);
+            this.chatContentTextBox.Size = new System.Drawing.Size(432, 89);
             this.chatContentTextBox.TabIndex = 0;
             // 
             // closeButton
@@ -104,6 +105,15 @@
             this.localIPLabel.TabIndex = 6;
             this.localIPLabel.Text = "Local IP: No Connection";
             // 
+            // nicknameTextBox
+            // 
+            this.nicknameTextBox.Location = new System.Drawing.Point(12, 421);
+            this.nicknameTextBox.Name = "nicknameTextBox";
+            this.nicknameTextBox.Size = new System.Drawing.Size(189, 21);
+            this.nicknameTextBox.TabIndex = 7;
+            this.nicknameTextBox.Text = "My Nickname";
+            this.nicknameTextBox.Click += new System.EventHandler(this.nicknameTextBox_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.sendButton;
@@ -111,6 +121,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(614, 455);
+            this.Controls.Add(this.nicknameTextBox);
             this.Controls.Add(this.localIPLabel);
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.listBox1);
@@ -119,7 +130,7 @@
             this.Controls.Add(this.chatContentTextBox);
             this.Controls.Add(this.chatHistoryTextBox);
             this.Name = "Form1";
-            this.Text = "CelerChatClient  - Alpha 0.6 By Transion C. T. Studio";
+            this.Text = "CelerChatClient  - Alpha 0.7 By Transion C. T. Studio";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,6 +145,7 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button connectButton;
         private System.Windows.Forms.Label localIPLabel;
+        private System.Windows.Forms.TextBox nicknameTextBox;
     }
 }
 

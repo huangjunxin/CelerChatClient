@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -45,6 +46,11 @@ namespace CelerChatClient {
                 BeginInvoke(new Action(() => {
                     localIPLabel.Text = "Local IP: " + localEndPoint;
                 }));
+
+                // 将nicknameTextBox设为ReadOnly
+                BeginInvoke(new Action(() => {
+                    nicknameTextBox.ReadOnly = true;
+                }));
             } catch {
                 newInfo = "Failed to connect to server.";
             }
@@ -71,6 +77,19 @@ namespace CelerChatClient {
                 chatHistoryTextBox.ScrollToCaret();
             }));
 
+            // 创建发送对象，即将发送昵称给客户端
+            ContactObject co = new ContactObject();
+            co.nickname = nicknameTextBox.Text;
+
+            // 将Json转换为string
+            string targetObject = JsonConvert.SerializeObject(co);
+
+            // 将string转换为byte
+            byte[] targetObjectBuffer = Encoding.UTF8.GetBytes(targetObject);
+
+            // 发送昵称给客户端
+            socketClient.Send(targetObjectBuffer);
+
             // 创建接收服务器反馈的进程
             Thread threadClient = new Thread(Recv);
             threadClient.IsBackground = true;
@@ -92,8 +111,8 @@ namespace CelerChatClient {
                 // 获取当前时间
                 string nowDateTime = DateTime.Now.ToString();
 
-                // 将收到的字符串拼接成一条新消息
-                string newMsg = socketClient.LocalEndPoint + " " + nowDateTime;
+                // 即将发送的字符串拼接成一条新消息
+                string newMsg = nicknameTextBox.Text + " " + nowDateTime;
                 newMsg += Environment.NewLine;
                 newMsg += "　" + targetMsg;
                 newMsg += Environment.NewLine;
@@ -111,11 +130,18 @@ namespace CelerChatClient {
                     chatHistoryTextBox.ScrollToCaret();
                 }));
 
-                // 将string转换为byte
-                byte[] targetMsgBuffer = Encoding.UTF8.GetBytes(targetMsg);
+                // 创建发送对象，即将发送新消息给客户端
+                ContactObject co = new ContactObject();
+                co.msg = targetMsg;
 
-                // 发送消息
-                socketClient.Send(targetMsgBuffer);
+                // 将Json转换为string
+                string targetObject = JsonConvert.SerializeObject(co);
+
+                // 将string转换为byte
+                byte[] targetObjectBuffer = Encoding.UTF8.GetBytes(targetObject);
+
+                // 发送新消息给客户端
+                socketClient.Send(targetObjectBuffer);
             } else {
                 MessageBox.Show("You are not currently connected to the server. Please check your connection.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -131,8 +157,6 @@ namespace CelerChatClient {
 
                     // 将byte转换为string
                     string srcNewMsg = Encoding.UTF8.GetString(srcNewMsgBuffer, 0, len);
-
-                    // Console.WriteLine(srcChatHistory);
 
                     // 将新消息增加到chatHistory
                     string chatHistory = chatHistoryTextBox.Text;
@@ -152,5 +176,16 @@ namespace CelerChatClient {
                 }
             }
         }
+
+        private void nicknameTextBox_Click(object sender, EventArgs e) {
+            if (nicknameTextBox.ReadOnly == false) {
+                nicknameTextBox.Text = "";
+            }
+        }
+    }
+
+    class ContactObject {
+        public string nickname = null;
+        public string msg = null;
     }
 }
