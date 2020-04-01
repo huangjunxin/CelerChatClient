@@ -51,31 +51,17 @@ namespace CelerChatClient {
                 BeginInvoke(new Action(() => {
                     nicknameTextBox.ReadOnly = true;
                 }));
+
+                // 根据nickname与newInfo创建新消息
+                MakeNewMsg("System info", newInfo);
             } catch {
                 newInfo = "Failed to connect to server.";
+
+                // 根据nickname与newInfo创建新消息
+                MakeNewMsg("System info", newInfo);
+
+                return;
             }
-
-            // 获取当前时间
-            string nowDateTime = DateTime.Now.ToString();
-
-            // 将新提示拼接成一条新消息
-            string newMsg = "System info " + nowDateTime;
-            newMsg += Environment.NewLine;
-            newMsg += "　" + newInfo;
-            newMsg += Environment.NewLine;
-
-            // 将新提示增加到chatHistory
-            string chatHistory = chatHistoryTextBox.Text;
-            chatHistory += newMsg;
-
-            // 将增加新消息后的chatHistory更新到chatHistoryTextBox
-            BeginInvoke(new Action(() => {
-                chatHistoryTextBox.Text = chatHistory;
-
-                // 滚动到最底部
-                chatHistoryTextBox.SelectionStart = chatHistoryTextBox.Text.Length;
-                chatHistoryTextBox.ScrollToCaret();
-            }));
 
             // 创建发送对象，即将发送昵称给客户端
             ContactObject co = new ContactObject();
@@ -108,27 +94,8 @@ namespace CelerChatClient {
                     chatContentTextBox.Text = "";
                 }));
 
-                // 获取当前时间
-                string nowDateTime = DateTime.Now.ToString();
-
-                // 即将发送的字符串拼接成一条新消息
-                string newMsg = nicknameTextBox.Text + " " + nowDateTime;
-                newMsg += Environment.NewLine;
-                newMsg += "　" + targetMsg;
-                newMsg += Environment.NewLine;
-
-                // 将新消息增加到chatHistory
-                string chatHistory = chatHistoryTextBox.Text;
-                chatHistory += newMsg;
-
-                // 将增加新消息后的chatHistory更新到chatHistoryTextBox
-                BeginInvoke(new Action(() => {
-                    chatHistoryTextBox.Text = chatHistory;
-
-                    // 滚动到最底部
-                    chatHistoryTextBox.SelectionStart = chatHistoryTextBox.Text.Length;
-                    chatHistoryTextBox.ScrollToCaret();
-                }));
+                // 根据nickname与targetMsg创建新消息
+                string newMsg = MakeNewMsg(nicknameTextBox.Text, targetMsg);
 
                 // 创建发送对象，即将发送新消息给客户端
                 ContactObject co = new ContactObject();
@@ -181,6 +148,32 @@ namespace CelerChatClient {
             if (nicknameTextBox.ReadOnly == false) {
                 nicknameTextBox.Text = "";
             }
+        }
+
+        public string MakeNewMsg(string nickname, string msg) {
+            // 获取当前时间
+            string nowDateTime = DateTime.Now.ToString();
+
+            // 即将发送的字符串拼接成一条新消息
+            string newMsg = nickname + " " + nowDateTime;
+            newMsg += Environment.NewLine;
+            newMsg += "　" + msg;
+            newMsg += Environment.NewLine;
+
+            // 将新消息增加到chatHistory
+            string chatHistory = chatHistoryTextBox.Text;
+            chatHistory += newMsg;
+
+            // 将增加新消息后的chatHistory更新到chatHistoryTextBox
+            BeginInvoke(new Action(() => {
+                chatHistoryTextBox.Text = chatHistory;
+
+                // 滚动到最底部
+                chatHistoryTextBox.SelectionStart = chatHistoryTextBox.Text.Length;
+                chatHistoryTextBox.ScrollToCaret();
+            }));
+
+            return newMsg;
         }
     }
 
