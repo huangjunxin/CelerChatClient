@@ -25,7 +25,7 @@ namespace CelerChatClient {
         static Socket socketClient = null;
 
         private void connectButton_Click(object sender, EventArgs e) {
-            // IPHostEntry host = Dns.GetHostEntry("0.tcp.ngrok.io");
+            // IPHostEntry host = Dns.GetHostEntry("");
             // IPAddress ip = host.AddressList[0];
 
             IPAddress ip = IPAddress.Parse("127.0.0.1");
@@ -34,7 +34,7 @@ namespace CelerChatClient {
             string newInfo = null;
 
             try {
-                socketClient.Connect(new IPEndPoint(ip, 10086));
+                socketClient.Connect(new IPEndPoint(ip, 18888));
 
                 newInfo = "Successfully connected to server.";
                 connectButton.Enabled = false;
