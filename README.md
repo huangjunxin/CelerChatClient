@@ -2,7 +2,7 @@
 
 A toy instant messaging software (client) running on Windows.
 
-*In fact, this is also my network communication program design crouse assignment*
+*This is also my final assignment of the course Network communication program design*
 
 Current version: 
 
